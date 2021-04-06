@@ -1,70 +1,13 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# AWS-Lightsail 이용하여 사용자가 직접 스테이지를 제작할 수 있는 샌드박스형 미로찾기 게임
+사용자가 직접 미로찾기 스테이지를 제작할 수 있게하여 흥미를 돋우게 하는 웹 어플리케이션 서비스를 제작한다. 현재 자주 사용되는 클라우드 서비스 중 AWS를 이용하여 리소스를 탄력적으로 사용할 수 있게 한다.
+### 개발 목적
+현재 클라우드 서비스는 서버를 대체할 수 있는 서비스로써 리소스 관리에 있어서 기존 서버보다 더욱 경제적으로 사용할 수 있다는 점에서 많은 기업이나 사람들이 사용하고 있다. 보통 게임의 유저는 제작자가 만들어 놓은 스테이지에서 게임을 진행하게 되며 스테이지를 모두 클리어하면 더 이상 게임을 진행할 수 없게 된다. 이 프로젝트는 사용자가 직접 스테이지를 제작할 수 있게 하는 샌드박스 형 게임을 웹 사이트로 서비스함으로써 게임 개발에 흥미를 돋우기 위함에 있다.
+### 개발 환경 및 기기
+* OS : Microsoft Windows 10
+* Language : HTML, CSS, JavaScript(ES6, React)
+* Framework : Visual Studio Code
+### Contributor
+남기은(20153046),이명범(20153067)
+### 실행방법
+* React 적용 가이드 - http://d2.naver.com/helloworld/1848131
+* React 설치 후 `npm start`를 이용해 실행할 수 있다.
