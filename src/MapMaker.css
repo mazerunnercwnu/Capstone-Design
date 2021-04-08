@@ -1,15 +1,14 @@
-#number{
-    vertical-align:middle;
+#size{
+    vertical-align:center;
 }
 table{
+    position:relative;
     margin: auto;
-    border-collapse: collapse;
-    border: 1px solid black;
+    border: none;
 }
 td{
-    border: 1px solid black;
+    border: none;
     width: 30px;
     height: 30px;
-    text-align:center;
-    vertical-align:middle;
+    vertical-align:center;
 }

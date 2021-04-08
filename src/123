@@ -1,0 +1,127 @@
+import React, { Component } from 'react';
+import './MapMaker.css';
+
+class MapMaker extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            height:0,
+            width:0,
+            map:[],
+            table:[],
+            mod:{
+                obs:0,
+                start:0,
+                end:0
+            }
+        }
+    }
+
+    //=================== 맵 제작 모드 세팅 ===================
+    setmodO(){
+        this.setState({
+            mod:{
+                obs:1,
+                start:0,
+                end:0
+            }
+        })
+    }
+    setmodS(){ 
+        this.setState({
+            mod:{
+                obs:0,
+                start:1,
+                end:0
+            }
+        })
+    }
+    setmodE(){
+        this.setState({
+            mod:{
+                obs:0,
+                start:0,
+                end:1
+            }
+        })
+    }
+
+    //=================== 맵 제작 테이블 세팅 ===================
+    size = () => {
+        const number = document.getElementById('number');
+
+        this.setState({
+            height: number.children[1].value,
+            width: number.children[3].value
+        });
+
+        let arr1 = [];
+        let arr2 = [];
+
+        for(let i = 0; i<this.state.width; i++){
+            arr1.push(0);
+        }
+        for(let i = 0; i<this.state.height; i++){
+            arr2.push(arr1);
+        }
+        this.setState({
+            map: arr2
+        })
+    }
+    table = () => {
+        let idx = [];
+
+        for(let i = 0; i < this.state.height; i++){
+            let child = [];
+
+            for(let j = 0; j < this.state.width; j++){
+                let mode = this.state.map[i][j];
+
+                if (mode === 0) {
+                    child.push(<td><button style = {{backgroundColor:"white"}}></button></td>)
+                } else if (mode === 1) { 
+                    child.push(<td><button style = {{backgroundColor:"black"}}></button></td>)
+                } else if (mode === 2) {
+                    child.push(<td><button style = {{backgroundColor:"blue"}}></button></td>)
+                } else if(mode === 3) {
+                    child.push(<td><button style = {{backgroundColor:"yellow"}}></button></td>)
+                }
+            }
+            idx.push(<tbody><tr>{child}</tr></tbody>)
+        }
+        
+        this.setState({
+            table:idx
+        })
+    }
+
+    render(){
+        return(
+            <div>
+                <div id ='number'>
+                    <span>height : </span>
+                    <input 
+                        id='height'
+                        type='number' 
+                        min ='0' 
+                        max = '20'>
+                    </input>&nbsp;
+                    <span>width : </span>
+                    <input 
+                        id='width' 
+                        type='number' 
+                        min ='0' 
+                        max = '20'>
+                    </input>&nbsp;
+                    <button onClick={this.size}>Build</button>
+                </div>
+                <div id = "map">
+                    <table>
+                        
+                    </table>
+                </div>
+            </div>
+        );
+    }
+}
+export default MapMaker;
