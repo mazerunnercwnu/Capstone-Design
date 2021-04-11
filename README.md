@@ -5,7 +5,6 @@
 ### 개발 환경 및 기기
 * OS : Microsoft Windows 10
 * Language : HTML, CSS, JavaScript(ES6, React)
-* Framework : Visual Studio Code
 ### Contributor
 남기은(20153046),이명범(20153067)
 ### 실행방법
