@@ -32,13 +32,26 @@ class Signup extends Component {
         e.preventDefault();
         if (this.state.checkedID === false) {
             alert('ID 중복 확인을 해주세요!');
-            return false;
+            return;
         } else if (this.state.checkedPWD === false) {
             alert('비밀번호를 다시 확인해주세요!');
-            return false;
+            return;
         } else {
+            const data = {
+                id : e.target.id.value,
+                pwd : e.target.pwd.value
+            }
+            fetch('http://localhost:3001/signup/', {
+                method:"post",
+                headers: {
+                    "content-type":"application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
             alert('회원가입이 완료되었습니다!')
-            return true;
+
+            
         }
     }
     checkID = (e) => {
@@ -90,21 +103,21 @@ class Signup extends Component {
         return(
             <div className = 'login'>
                 <div className = 'inputbox'>
-                    <form action = 'http://localhost:3001/signup' method = 'post' onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
                         <div>
                             <label htmlFor = 'id'>아이디</label><br/>
-                            <input type = 'text' name = 'id' placeholder = '아이디 입력' value = {this.state.id} onChange = {this.handleChange}/>
+                            <input name = 'id' type = 'text' placeholder = '아이디 입력' value = {this.state.id} onChange = {this.handleChange}/>
                             <button onClick = {this.checkID}> 중복 확인 </button><br/>
                         </div>
                         <div>
                             <label htmlFor = 'pwd'>비밀번호</label><br/>
-                            <input type = 'password' name = 'pwd' placeholder = '비밀번호 입력' value = {this.state.pwd} onChange = {this.handleChange}/><br/>
+                            <input name = 'pwd' type = 'password' placeholder = '비밀번호 입력' value = {this.state.pwd} onChange = {this.handleChange}/><br/>
                         </div>
                         <div>
                             <label htmlFor = 'cpwd'>비밀번호 확인</label><br/>
-                            <input type = 'password' name = 'cpwd' placeholder = '비밀번호 재입력' value = {this.state.cpwd} onChange = {this.handleChange}/>
+                            <input name = 'cpwd' type = 'password' placeholder = '비밀번호 재입력' value = {this.state.cpwd} onChange = {this.handleChange}/>
                         </div>
-                        <button onSubmit>회원가입</button>
+                        <input type = 'submit' value = '회원가입'/>
                     </form>{this.state.message}
                 </div>
             </div>
