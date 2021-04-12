@@ -207,6 +207,7 @@ class MapMaker extends Component {
     }
 
     render(){
+        console.log(localStorage.logged);
         return(
             <div>
                 <Head/>
