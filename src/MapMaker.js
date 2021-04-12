@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Head from './Header/header'
 import './MapMaker.css';
 
 class MapMaker extends Component {
@@ -16,24 +17,19 @@ class MapMaker extends Component {
                 end:0
             },
             sp:{
-                x:0,
-                y:0
+                x:-1,
+                y:-1
             },
             ep:{
-                x:0,
-                y:0
+                x:-1,
+                y:-1
             }
         }
     }
     //================== 높이와 너비 설정 =====================
-    height = (e) => {
+    handleChange = (e) => {
         this.setState({
-            height:e.target.value
-        })
-    }
-    width = (e) => {
-        this.setState({
-            width:e.target.value
+            [e.target.name]:e.target.value
         })
     }
     //===================== 모드 세팅 ========================
@@ -81,16 +77,15 @@ class MapMaker extends Component {
     //================== 사용자 클릭 이벤트 ========================
     set = (x, y) => {
         let mode = this.state.mod;
-        let arr = this.state.map;
+        let { map } = this.state;
 
         if(mode.cancel === 1 && mode.obs === 0 && mode.start === 0 && mode.end === 0){
             for(let i = 0; i < this.state.height; i++){
                 for(let j = 0; j < this.state.width; j++){
                     if(x === i && y === j){
-                        arr[i][j] = 0;
+                        map[i][j] = 0;
                         this.setState({
-                            map: arr.concat([]),
-                            exe: true
+                            map
                         })
                     }
                 }
@@ -101,9 +96,9 @@ class MapMaker extends Component {
             for(let i = 0; i < this.state.height; i++){
                 for(let j = 0; j < this.state.width; j++){
                     if(x === i && y === j){
-                        arr[i][j] = 1;
+                        map[i][j] = 1;
                         this.setState({
-                            map: arr.concat([])
+                            map
                         })
                     }
                 }
@@ -114,10 +109,25 @@ class MapMaker extends Component {
             for(let i = 0; i < this.state.height; i++){
                 for(let j = 0; j < this.state.width; j++){
                     if(x === i && y === j){
-                        if(x === i && y === j){
-                            arr[i][j] = 2;
+                        let { sp } = this.state;
+                        if(sp.x === -1 && sp.y === -1){
+                            map[i][j] = 2;
                             this.setState({
-                                map: arr.concat([])
+                                map,
+                                sp: {
+                                    x: i,
+                                    y: j
+                                }
+                            })
+                        } else {
+                            map[sp.x][sp.y] = 0;
+                            map[i][j] = 2;
+                            this.setState({
+                                map,
+                                sp: {
+                                    x: i,
+                                    y: j
+                                }
                             })
                         }
                     }
@@ -129,10 +139,27 @@ class MapMaker extends Component {
             for(let i = 0; i < this.state.height; i++){
                 for(let j = 0; j < this.state.width; j++){
                     if(x === i && y === j){
-                        arr[i][j] = 3;
-                        this.setState({
-                            map: arr.concat([])
-                        })
+                        let { ep } = this.state;
+                        if(ep.x === -1 && ep.y === -1){
+                            map[i][j] = 3;
+                            this.setState({
+                                map,
+                                ep: {
+                                    x: i,
+                                    y: j
+                                }
+                            })
+                        } else {
+                            map[ep.x][ep.y] = 0;
+                            map[i][j] = 3;
+                            this.setState({
+                                map,
+                                ep: {
+                                    x: i,
+                                    y: j
+                                }
+                            })
+                        }
                     }
                 }
             }
@@ -151,12 +178,12 @@ class MapMaker extends Component {
         }
 
         this.setState({
-            map : arr.concat([])
+            map:arr
         })
     }
 
     table = () => {
-        let idx = [];
+        let arr = [];
         for(let i = 0; i < this.state.height; i++){
             let child = [];
             for(let j = 0; j < this.state.width; j++){
@@ -172,29 +199,30 @@ class MapMaker extends Component {
                     child.push(<td><button style = {{backgroundColor:"yellow", width:"40px", height:"40px"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
                 }
             }
-            idx.push(<tbody><tr>{child}</tr></tbody>)
+            arr.push(<tbody><tr>{child}</tr></tbody>)
         }
         this.setState({
-            table:idx
+            table:arr
         })
     }
 
     render(){
         return(
             <div>
-                <div id = 'size'>
-                    <input style = {{width:'50px'}} placeholder = 'height' onChange = {this.height}></input>&nbsp;
-                    <input style = {{width:'50px'}} placeholder = 'width' onChange = {this.width}></input>&nbsp;
+                <Head/>
+                <div className = 'size'>
+                    <input name = 'height' placeholder = 'height' onChange = {this.handleChange}></input>&nbsp;
+                    <input name = 'width' placeholder = 'width' onChange = {this.handleChange}></input>&nbsp;
                     <button onMouseDown={this.size} onMouseUp={this.table}>Build</button>
                 </div>
                 <br/>
-                <div id = 'mode'>
+                <div className = 'mode'>
                     <button id = "obs" onClick = {this.setmodO}>obstacle</button>&nbsp;
                     <button id = "start" onClick = {this.setmodS}>start</button>&nbsp;
                     <button id = "end" onClick = {this.setmodE}>end</button>&nbsp;&nbsp;
                     <button id = "cancel" onClick = {this.setmodC}>CANCEL</button>
                 </div>
-                <br/>
+                <h5>맵의 크기는 최대 30x30까지를 권장합니다.</h5>
                 <table>
                     {this.state.table}
                 </table>

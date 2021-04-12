@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap');
+
+.bg button {
+    position : relative;
+    background-color :#312d3a;
+    height: 50px;
+    width : 200px;
+    margin-top : 20px;
+    left: 44%;
+    color : white;
+    font-size : 20px;
+    font-family: 'Do Hyeon', sans-serif;
+}
+.inp input {
+    position : relative;
+    margin-top : 10px;
+    margin-bottom : 30px;
+    font-size : 30px;
+    font-family: 'Do Hyeon', sans-serif;
+    cursor : default;
+    text-Align : center;
+    height : 40px;
+    width : 20%;
+    left : 39%;
+}

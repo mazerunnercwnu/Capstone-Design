@@ -1,27 +1,12 @@
-import React, { Component } from 'react';
+import React from "react";
+import Head from './Header/header'
 
-class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      height: 0,
-      width: 0,
-      map:[],
-      mod:{
-        obs: 0,
-        start: 0,
-        end: 0
-      }
-    }
-  }
-
-  
-  
-  render() {
-    return (
-      <h1>MazeGame</h1>
-    );
-  }
+function App() {
+  return (
+    <div>
+      
+    </div>
+  );
 }
 
 export default App;

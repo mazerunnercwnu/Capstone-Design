@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Map from './MapMaker';
+import Play from './PlayMaze';
+import Signup from './Signup';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Map />
+    <Signup />
   </React.StrictMode>,
   document.getElementById('root')
 );

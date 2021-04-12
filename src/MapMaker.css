@@ -1,14 +1,68 @@
-#size{
-    vertical-align:center;
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap');
+
+h5 {
+    text-align : center;
+    color : white;
+    font-size : 20px;
+    font-family: 'Do Hyeon', sans-serif;
 }
-table{
+.size {
+    margin-top : 10px
+}
+.size input {
+    position: relative;
+    width : 50px;
+    left : 45%;
+}
+.size button {
+    position: relative; 
+    font-family: 'Do Hyeon', sans-serif;
+    left : 45%;
+}
+table {
     position:relative;
-    margin: auto;
+    margin:auto;
     border: none;
 }
-td{
+td {
     border: none;
-    width: 30px;
-    height: 30px;
     vertical-align:center;
+}
+.mode button {
+    position : relative;
+    height:30px;
+    width:70px;
+    left : 41%;
+}
+#obs {
+    position : relative;
+    border-style : none;
+    background-color : rgb(51, 51, 51);
+    color :rgb(205, 207, 189);
+    font-family: 'Do Hyeon', sans-serif;
+    font-size : 15px; 
+}
+#start {
+    position : relative;
+    border-style : none;
+    background-color : rgb(181, 255, 251);
+    color :rgb(47, 47, 47);
+    font-family: 'Do Hyeon', sans-serif;
+    font-size : 15px; 
+}
+#end {
+    position : relative;
+    border-style : none;
+    background-color : rgb(230, 228, 135);
+    color :rgb(47, 47, 47);
+    font-family: 'Do Hyeon', sans-serif;
+    font-size : 15px; 
+}
+#cancel {
+    position : relative;
+    border-style : none;
+    background-color : rgb(255, 255, 255);
+    color :rgb(47, 47, 47);
+    font-family: 'Do Hyeon', sans-serif;
+    font-size : 15px; 
 }
