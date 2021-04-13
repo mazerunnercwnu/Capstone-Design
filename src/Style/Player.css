@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap');
 
-.bg button {
+.start button {
     position : relative;
     background-color :#312d3a;
     height: 50px;
@@ -11,7 +11,13 @@
     font-size : 20px;
     font-family: 'Do Hyeon', sans-serif;
 }
-.inp input {
+.start p {
+    text-align : center;
+    color : white;
+    font-size : 20px;
+    font-family: 'Do Hyeon', sans-serif;
+}
+.board input {
     position : relative;
     margin-top : 10px;
     margin-bottom : 30px;

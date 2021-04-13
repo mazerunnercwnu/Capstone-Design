@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap');
 
-h5 {
+.tip p {
     text-align : center;
     color : white;
     font-size : 20px;
     font-family: 'Do Hyeon', sans-serif;
 }
+
 .size {
     margin-top : 10px
 }
@@ -19,6 +20,7 @@ h5 {
     font-family: 'Do Hyeon', sans-serif;
     left : 45%;
 }
+
 table {
     position:relative;
     margin:auto;
@@ -28,6 +30,7 @@ td {
     border: none;
     vertical-align:center;
 }
+
 .mode button {
     position : relative;
     height:30px;

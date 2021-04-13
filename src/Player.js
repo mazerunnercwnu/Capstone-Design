@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './PlayMaze.css'
+import './Style/Player.css'
 import Head from './Header/header'
 
-class PlayMaze extends Component {
+class Player extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -187,22 +187,17 @@ class PlayMaze extends Component {
             <div>
             <Head/>
             <div className = 'bg' onClick = { this.focus }>
-                <button onClick = { this.start }>Game Start!</button>
-                <h5>[Game Start!] 버튼을 누르시면 맵이 켜지며 타이머가 작동합니다 !</h5>
-                <div className = 'inp'>
-                    <input
-                        onKeyUp = { this.handleKeyPress }
-                        ref = { this.doing }
-                        value = { this.getTimer() }
-                        readOnly
-                    ></input>
-                    <table>
-                        { this.state.table }
-                    </table>
+                <div className = 'start'>
+                    <button onClick = { this.start }>Game Start!</button>
+                    <p>[Game Start!] 버튼을 누르시면 맵이 켜지며 타이머가 작동합니다 !</p>
+                </div>
+                <div className = 'board'>
+                    <input onKeyPress = { this.handleKeyPress } ref = { this.doing } value = { this.getTimer() } readOnly></input>
+                    <table>{ this.state.table }</table>
                 </div>
             </div>
             </div>
         );
     }
 }
-export default PlayMaze;
+export default Player;

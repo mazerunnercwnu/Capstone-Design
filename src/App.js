@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Signup from './Signup'
 import Login from './Login'
-import Map from './MapMaker'
-import Play from './PlayMaze'
-import './App.css'
+import Map from './Maker'
+import Play from './Player'
+import './Style/App.css'
 
 function App() {
   return (

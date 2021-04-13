@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Head from './Header/header'
-import './MapMaker.css';
+import './Style/Maker.css';
 
-class MapMaker extends Component {
+class Maker extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -223,7 +223,9 @@ class MapMaker extends Component {
                     <button id = "end" onClick = {this.setmodE}>end</button>&nbsp;&nbsp;
                     <button id = "cancel" onClick = {this.setmodC}>CANCEL</button>
                 </div>
-                <h5>맵의 크기는 최대 30x30까지를 권장합니다.</h5>
+                <div className = 'tip'>
+                    <p>맵의 크기는 최대 30x30까지를 권장합니다.</p>
+                </div>
                 <table>
                     {this.state.table}
                 </table>
@@ -231,4 +233,4 @@ class MapMaker extends Component {
         );
     }
 }
-export default MapMaker;
+export default Maker;

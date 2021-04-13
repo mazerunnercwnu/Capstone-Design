@@ -3,10 +3,10 @@ const router = express.Router();
 let mysql = require('mysql'); 
 
 let connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'lord15926535',
-    database: 'mazerunner' 
+    host: 'ls-08aa70866569420461a0d672b7c9d0b0821b42a0.ctoxkzgo9rsa.ap-northeast-2.rds.amazonaws.com',
+    user: 'dbmasteruser',
+    password: '-K`DbayHh2J0mUkZoC)D4=3yHD&SVwbB',
+    database: 'dbmaster' 
 });
 
 connection.connect(); 
@@ -43,7 +43,6 @@ router.post('/signup', function (req, res) {
 });
 
 router.post('/login', function (req, res) {
-    // console.log(req);
     let user_id = req.body.id;
     let user_password = req.body.pwd;
 
