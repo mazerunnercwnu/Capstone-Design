@@ -62,4 +62,33 @@ router.post('/login', function (req, res) {
         }
     })
 });
+
+router.post('/saving_map', function (req, res) {
+    let map_data = req.body.map;
+    let map_height = req.body.height;
+    let map_width = req.body.width;
+
+    let sql = `insert into map(map_data, map_height, map_width) values (?, ?, ?)`;
+    connection.query(sql, [map_data, map_height, map_width], function (err, rows, fields){
+        if ( err ) {
+            console.log(err)
+        } else {
+            console.log('success!');
+        }
+    })
+});
+
+router.post('/loading_map', function (req, res) {
+    let map_id = req.body.map_id;
+
+    let sql = `SELECT map_data, map_height, map_width FROM map WHERE map_id = ?`;
+    connection.query(sql, [map_id], function (err, rows, fields) {
+        if ( err ) {
+            console.log(err)
+        } else {
+            console.log('success!');
+            res.send(rows[0]);
+        }
+    })
+});
 module.exports = router;

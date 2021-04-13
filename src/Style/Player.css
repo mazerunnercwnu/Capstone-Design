@@ -19,7 +19,7 @@
     font-family: 'Do Hyeon', sans-serif;
 }
 .board {
-    height : 600px;
+    height : 600;
 }
 .board input {
     position : relative;
@@ -33,4 +33,8 @@
     font-family: 'Do Hyeon', sans-serif;
     cursor : default;
     text-Align : center;
+}
+.board table {
+    margin-left :auto;
+    margin-right: auto;
 }

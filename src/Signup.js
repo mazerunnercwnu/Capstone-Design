@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Head from './Header/header'
 import './Style/Signup.css'
+const ip = '3.36.223.82'
 
 class Signup extends Component {
     constructor(props){
@@ -44,7 +45,8 @@ class Signup extends Component {
                 id : e.target.id.value,
                 pwd : e.target.pwd.value
             }
-            fetch('http://localhost:3001/signup/', {
+            fetch(`http://localhost:3001/check/`, {
+            //fetch(`http://${ip}:3001/signup/`, {
                 method:"post",
                 headers: {
                     "content-type":"application/json"
@@ -60,7 +62,8 @@ class Signup extends Component {
         const data = {
             id : this.state.id
         }
-        fetch('http://localhost:3001/check/', {
+        fetch(`http://localhost:3001/check/`, {
+        //fetch(`http://${ip}:3001/check/`, {
             method:"post",
             headers: {  
                 "Content-Type":"application/json" 

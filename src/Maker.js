@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Head from './Header/header'
 import './Style/Maker.css';
+const ip = '3.36.223.82;'
 
 class Maker extends Component {
     constructor(props){
@@ -25,6 +26,31 @@ class Maker extends Component {
                 y:-1
             }
         }
+    }
+    //==================== 맵 저장 ==========================
+    save = () => {
+        //=========== 맵 정보 데이터 변환 =============
+        let idx = '';
+        const { map, height, width } = this.state;
+        for(let i = 0; i < height; i++){
+            for(let j = 0; j < width; j++){
+                idx = idx + map[i][j];
+            }
+        }
+        //=============== DB에 저장 ================
+        const data = {
+            map: idx,
+            height: height,
+            width: width
+        }
+        fetch(`http://localhost:3001/saving_map/`, {
+        //fetch(`http://${ip}:3001/saving_map/`, {
+            method:'post',
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
     }
     //================== 높이와 너비 설정 =====================
     handleChange = (e) => {
@@ -179,6 +205,9 @@ class Maker extends Component {
 
         this.setState({
             map:arr
+        },
+        () => {
+            this.table();
         })
     }
 
@@ -207,14 +236,13 @@ class Maker extends Component {
     }
 
     render(){
-        console.log(localStorage.logged);
         return(
             <div>
                 <Head/>
                 <div className = 'size'>
                     <input name = 'height' placeholder = 'height' onChange = {this.handleChange}></input>&nbsp;
                     <input name = 'width' placeholder = 'width' onChange = {this.handleChange}></input>&nbsp;
-                    <button onMouseDown={this.size} onMouseUp={this.table}>Build</button>
+                    <button onClick = {this.size}>Build</button>
                 </div>
                 <br/>
                 <div className = 'mode'>
@@ -226,9 +254,12 @@ class Maker extends Component {
                 <div className = 'tip'>
                     <p>맵의 크기는 최대 30x30까지를 권장합니다.</p>
                 </div>
-                <table>
-                    {this.state.table}
-                </table>
+                <div className = 'save'>
+                    <button onClick = {this.save}>SAVE</button>
+                </div>
+                <div className = 'table'>
+                    <table>{this.state.table}</table>
+                </div>
             </div>
         );
     }

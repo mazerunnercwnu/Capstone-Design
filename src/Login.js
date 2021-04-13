@@ -1,9 +1,9 @@
 import { React, Component } from "react";
 import Head from './Header/header'
 import './Style/Login.css'
+const ip = '3.36.223.82'
 
 class Login extends Component {
-    
     constructor(props){
         super(props);
         this.state = {
@@ -11,6 +11,7 @@ class Login extends Component {
             pwd:'',
         }
     }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]:e.target.value
@@ -23,6 +24,7 @@ class Login extends Component {
             pwd:this.state.pwd
         }
         fetch('http://localhost:3001/login/', {
+        //fetch(`http://${ip}:3001/login/`), {
             method:'post',
             headers:{
                 "Content-Type":"application/json"
@@ -30,8 +32,8 @@ class Login extends Component {
             body: JSON.stringify(data)
         })
         .then(res => res.json())
-        .then(json => {
-            if(json.success === true){
+        .then(data => {
+            if(data.success === true){
                 alert('로그인 성공!')
                 if (typeof (Storage) == undefined) {
                     // 현재 브라우저에서는 web storage가 작동하지 않는다
