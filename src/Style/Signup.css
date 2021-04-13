@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap');
+
+
+.signup {
+    position:relative;
+    left:50%;
+    width : 500px;
+    margin-left:-250px;
+    font-family: 'Do Hyeon', sans-serif;
+    color : white;
+}
+.submit input{
+    margin : 0px;
+    margin-top:25px;
+    margin-left:4px;
+    height:50px;
+    width:500px;
+    font-family : 'Do Hyeon', sans-serif;
+    font-size : 20px;
+}
+.signupitem {
+    margin-top : 20px;
+}
+.signupitem input {
+    height : 40px;
+    width : 500px;
+    margin : 0;
+}
+.signupitem input::placeholder {
+    color : rgb(220, 220, 220);
+    font-family : 'Do Hyeon', sans-serif;
+    font-size : 20px;
+}
+.alert {
+    color : red
+}

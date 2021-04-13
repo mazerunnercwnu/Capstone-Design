@@ -1,5 +1,6 @@
 import { React, Component } from "react";
 import Head from './Header/header'
+import './Style/Login.css'
 
 class Login extends Component {
     
@@ -48,19 +49,16 @@ class Login extends Component {
         return (
             <div>
                 <Head/>
-                <div>
+                <div className = 'login'>
                     <form onSubmit={this.handleSubmit}>
-                        <div>
-                            <label htmlFor ='id'>아이디</label><br/>
-                            <input name = 'id' type = 'text' placeholder = '아이디' onChange={this.handleChange}></input><br/>
+                        <div className = 'loginitem'>
+                            <input name = 'id' type = 'text' placeholder = ' 아이디' onChange={this.handleChange}></input><br/>
+                        </div>
+                        <div className = 'loginitem'>
+                            <input name = 'pwd' type = 'password' placeholder = ' 패스워드' onChange={this.handleChange}></input><br/>
                         </div>
                         <div>
-                            <label htmlFor ='pwd'>패스워드</label><br/>
-                            <input name = 'pwd' type = 'password' placeholder = '패스워드' onChange={this.handleChange}></input><br/>
-                        </div>
-                        <div>
-                            <button onSubmit>로그인</button>&nbsp;
-                            <button onClick>회원가입</button>
+                            <button onSubmit>로그인</button>
                         </div>
                     </form>
                 </div>

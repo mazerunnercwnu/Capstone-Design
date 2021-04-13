@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Head from './Header/header'
+import './Style/Signup.css'
 
 class Signup extends Component {
     constructor(props){
@@ -8,7 +9,8 @@ class Signup extends Component {
             id:'',
             pwd:'',
             cpwd:'',
-            message : '',
+            alertID : '',
+            alertPwd : '',
             checkedID : false,
             checkedPWD : false
         }
@@ -18,10 +20,11 @@ class Signup extends Component {
             [e.target.name]:e.target.value
         },
         () => {
-            if (e.target.name === 'pwd' || e.target.name === 'cpwd'){
+            if (e.target.name === 'pwd' || e.target.name === 'cpwd'){ // 비밀번호 비교
                 this.checkPwd();
-            } else if (e.target.name === 'id'){
+            } else if (e.target.name === 'id'){ // id의 input이 변경 될 경우 아이디 중복 재검사
                 this.setState({
+                    alertID : '',
                     checkedID : false
                 })
             }
@@ -48,10 +51,7 @@ class Signup extends Component {
                 },
                 body: JSON.stringify(data)
             })
-
             alert('회원가입이 완료되었습니다!')
-
-            
         }
     }
     checkID = (e) => {
@@ -70,12 +70,15 @@ class Signup extends Component {
         .then(res => res.json())
         .then(data => {
             if(data.possible === true){
-                alert('사용 가능한 ID입니다.');
                 this.setState({
+                    alertID : '사용 가능한 ID입니다.',
                     checkedID : true
                 })
             } else {
-                alert('사용 불가능한 ID입니다.');
+                this.setState({
+                    alertID : '사용 불가능한 ID입니다.',
+                    checkedID : false
+                })
             }
         })
     }
@@ -83,42 +86,50 @@ class Signup extends Component {
         if ( this.state.pwd === this.state.cpwd) {
             if(this.state.pwd === ''){
                 this.setState({
-                    message : '',
+                    alertPwd : '',
                     checkedPWD : false
                 })
                 return;
             }
             this.setState({
-                message : '비밀번호가 일치합니다.',
+                alertPwd : '비밀번호가 일치합니다.',
                 checkedPWD : true
             })
         } else {
             this.setState({
-                message : '비밀번호가 일치하지 않습니다.',
+                alertPwd : '비밀번호가 일치하지 않습니다.',
                 checkedPWD : false
             })
         }
     }
     render(){
         return(
-            <div className = 'login'>
-                <div className = 'inputbox'>
+            <div>
+                <Head/>
+                <div className = 'signup'>
                     <form onSubmit={this.handleSubmit}>
-                        <div>
-                            <label htmlFor = 'id'>아이디</label><br/>
-                            <input name = 'id' type = 'text' placeholder = '아이디 입력' value = {this.state.id} onChange = {this.handleChange}/>
-                            <button onClick = {this.checkID}> 중복 확인 </button><br/>
+                        <div className = 'signupitem'>
+                            <label htmlFor = 'id'>아이디 </label><br/>
+                            <input name = 'id' type = 'text' placeholder = ' 아이디 입력' value = {this.state.id} onChange = {this.handleChange} onBlur = {this.checkID}/><br/>
                         </div>
-                        <div>
-                            <label htmlFor = 'pwd'>비밀번호</label><br/>
-                            <input name = 'pwd' type = 'password' placeholder = '비밀번호 입력' value = {this.state.pwd} onChange = {this.handleChange}/><br/>
+                        <div className = 'alert'>
+                            {this.state.alertID}
                         </div>
-                        <div>
-                            <label htmlFor = 'cpwd'>비밀번호 확인</label><br/>
-                            <input name = 'cpwd' type = 'password' placeholder = '비밀번호 재입력' value = {this.state.cpwd} onChange = {this.handleChange}/>
+                        <div className = 'signupitem'>
+                            <label htmlFor = 'pwd'>비밀번호 </label><br/>
+                            <input name = 'pwd' type = 'password' placeholder = ' 비밀번호 입력' value = {this.state.pwd} onChange = {this.handleChange}/><br/>
                         </div>
-                        <input type = 'submit' value = '회원가입'/>
-                    </form>{this.state.message}
+                        <div className = 'signupitem'>
+                            <label htmlFor = 'cpwd'>비밀번호 확인 </label><br/>
+                            <input name = 'cpwd' type = 'password' placeholder = ' 비밀번호 재입력' value = {this.state.cpwd} onChange = {this.handleChange}/>
+                        </div>
+                        <div className = 'alert'>
+                            {this.state.alertPwd}
+                        </div>
+                        <div className = 'submit'>
+                            <input type = 'submit' value = '회원가입'/>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

@@ -4,7 +4,7 @@ function Header() {
     return (
         <div className="head">
             <div className="head"></div>
-            <z>The Maze Runner</z>
+            <h1>The Maze Runner</h1>
         </div>
     )
 }
