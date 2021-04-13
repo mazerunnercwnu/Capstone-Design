@@ -100,6 +100,7 @@ class Player extends Component {
     }
     handleKeyPress = (e) => {
         e.preventDefault();
+        
         if (!this.state.isUsing) return;
 
         if (e.keyCode === 38){ // Up

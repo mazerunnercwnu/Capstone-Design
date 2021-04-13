@@ -1,25 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap');
 
+
+.size {
+    position :relative;
+    left : 50%;
+    width : 170px;
+    margin-left : -85px;
+    margin-top : 10px;
+}
+.size input {
+    width : 50px;
+}
+.size button {
+    font-family: 'Do Hyeon', sans-serif;
+}
+.mode {
+    position:relative;
+    width : 300px;
+    left : 50%;
+    margin-left : -150px;
+}
 .tip p {
     text-align : center;
     color : white;
     font-size : 20px;
     font-family: 'Do Hyeon', sans-serif;
 }
-.size {
-    margin-top : 10px
-}
-.size input {
-    position: relative;
-    width : 50px;
-    left : 45%;
-}
-.size button {
-    position: relative; 
-    font-family: 'Do Hyeon', sans-serif;
-    left : 45%;
-}
-
 table {
     position:relative;
     margin:auto;
@@ -34,7 +40,6 @@ td {
     position : relative;
     height:30px;
     width:70px;
-    left : 41%;
 }
 #obs {
     position : relative;

@@ -220,7 +220,7 @@ class Maker extends Component {
                 <div className = 'mode'>
                     <button id = "obs" onClick = {this.setmodO}>obstacle</button>&nbsp;
                     <button id = "start" onClick = {this.setmodS}>start</button>&nbsp;
-                    <button id = "end" onClick = {this.setmodE}>end</button>&nbsp;&nbsp;
+                    <button id = "end" onClick = {this.setmodE}>end</button>&nbsp;
                     <button id = "cancel" onClick = {this.setmodC}>CANCEL</button>
                 </div>
                 <div className = 'tip'>

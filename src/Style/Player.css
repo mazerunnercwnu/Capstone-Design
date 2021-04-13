@@ -6,7 +6,8 @@
     height: 50px;
     width : 200px;
     margin-top : 20px;
-    left: 44%;
+    margin-left : -100px;
+    left: 50%;
     color : white;
     font-size : 20px;
     font-family: 'Do Hyeon', sans-serif;
@@ -17,15 +18,19 @@
     font-size : 20px;
     font-family: 'Do Hyeon', sans-serif;
 }
+.board {
+    height : 600px;
+}
 .board input {
     position : relative;
+    left : 50%;
+    height : 40px;
+    width : 400px;
     margin-top : 10px;
     margin-bottom : 30px;
+    margin-left : -200px;
     font-size : 30px;
     font-family: 'Do Hyeon', sans-serif;
     cursor : default;
     text-Align : center;
-    height : 40px;
-    width : 20%;
-    left : 39%;
 }
