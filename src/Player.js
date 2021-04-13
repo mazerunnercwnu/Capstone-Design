@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import './Style/Player.css'
-import Head from './Header/header'
+import './Style/Player.css';
+import Head from './Header/header';
+const ip = '3.36.223.82';
 
 class Player extends Component {
     constructor(props){
         super(props);
         this.state = {
-            height:4,
-            width:6,
-            map:[
-                [1, 0, 0, 0, 1, 1],
-                [1, 0, 0, 0, 1, 1],
-                [1, 0, 2, 0, 1, 0],
-                [1, 3, 0, 0, 1, 0]
-            ],
+            height:0,
+            width:0,
+            map:[],
             table:'',
             pos:{
                 x:-1,
@@ -23,6 +19,53 @@ class Player extends Component {
             isUsing:false
         }
     }
+    componentWillMount(){
+         this.load();   
+    }
+    //===================== 맵 불러오기 ==============================
+    load = () => {
+        //================= DB에서 불러오기 ==========================
+        let idx = '';
+        let id = 2;
+
+        const data = {
+            map_id:id
+        }
+
+        fetch(`http://localhost:3001/loading_map/`, {
+        //fetch(`http://${ip}:3001/loading_map/`, {
+            method:'post',
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(data => {
+            idx = data.map_data;
+            this.setState({
+                height:data.map_height,
+                width:data.map_width
+            },
+            () => {
+                //================ 맵 데이터 형식 변환 =======================
+                let count = 0;
+                let map = [];
+
+                for(let i = 0; i < this.state.height; i++){
+                    let arr = [];
+                    for(let j = 0; j < this.state.width; j++){
+                        arr.push(parseInt(idx.charAt(count)));
+                        count++;
+                    }
+                    map.push(arr);
+                }
+                this.setState({
+                    map: this.state.map.concat(map)
+                })
+            })
+        })
+    }
     //===================== 키 입력 포커싱 ===========================
     doing = React.createRef();
 
@@ -30,13 +73,11 @@ class Player extends Component {
         this.doing.current.focus();
     }
     start = () => {
-        if(this.state.isUsing) return;
-
-        this.doing.current.focus();
-        this.initialize();
+        if(this.state.isUsing === true) return;
+        this.setTable();
         this.searchPos();
+        this.setState({ isUsing : true });
         setInterval(this.timer, 10);
-        this.setState({ isUsing:true });
     }
     //====================== 키 입력 이벤트 =============================
     moveUp = () => {
@@ -100,8 +141,8 @@ class Player extends Component {
     }
     handleKeyPress = (e) => {
         e.preventDefault();
-        
-        if (!this.state.isUsing) return;
+
+        if (this.state.isUsing === false) return;
 
         if (e.keyCode === 38){ // Up
             this.moveUp();
@@ -158,7 +199,7 @@ class Player extends Component {
     //======================= 맵 세팅 =============================
     setTable = () => {
         let idx = [];
-
+        
         for(let i = 0; i < this.state.height; i++){
             let child = [];
             for(let j = 0; j < this.state.width; j++){
@@ -170,7 +211,7 @@ class Player extends Component {
                     child.push(<td style = {{backgroundColor:'black', width:'40px', height:'40px'}}></td>)
                 } else if (mode === 2) {
                     child.push(<td style = {{backgroundColor:'skyblue', width:'40px', height:'40px'}}></td>)
-                } else if(mode === 3) {
+                } else if (mode === 3) {
                     child.push(<td style = {{backgroundColor:'yellow', width:'40px', height:'40px'}}></td>)
                 }
             }
@@ -179,9 +220,6 @@ class Player extends Component {
         this.setState({
             table:idx
         })
-    }
-    initialize = () => {
-        this.setTable();
     }
     render(){
         return(
@@ -193,7 +231,7 @@ class Player extends Component {
                     <p>[Game Start!] 버튼을 누르시면 맵이 켜지며 타이머가 작동합니다 !</p>
                 </div>
                 <div className = 'board'>
-                    <input onKeyPress = { this.handleKeyPress } ref = { this.doing } value = { this.getTimer() } readOnly></input>
+                    <input onKeyDown = { this.handleKeyPress } ref = { this.doing } value = { this.getTimer() } readOnly></input>
                     <table>{ this.state.table }</table>
                 </div>
             </div>
