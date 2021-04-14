@@ -9,6 +9,7 @@ class Maker extends Component {
         this.state = {
             height:0,
             width:0,
+            title:'',
             map:[],
             table:"",
             mod:{
@@ -31,7 +32,7 @@ class Maker extends Component {
     save = () => {
         //=========== 맵 정보 데이터 변환 =============
         let idx = '';
-        const { map, height, width } = this.state;
+        const { map, height, width, title } = this.state;
         for(let i = 0; i < height; i++){
             for(let j = 0; j < width; j++){
                 idx = idx + map[i][j];
@@ -41,7 +42,8 @@ class Maker extends Component {
         const data = {
             map: idx,
             height: height,
-            width: width
+            width: width,
+            title: title
         }
         fetch(`http://localhost:3001/saving_map/`, {
         //fetch(`http://${ip}:3001/saving_map/`, {
@@ -253,6 +255,9 @@ class Maker extends Component {
                 </div>
                 <div className = 'tip'>
                     <p>맵의 크기는 최대 30x30까지를 권장합니다.</p>
+                </div>
+                <div className = 'title'>
+                    <input name = 'title' placeholder = 'INPUT TITLE HERE' onChange = {this.handleChange}></input>
                 </div>
                 <div className = 'save'>
                     <button onClick = {this.save}>SAVE</button>

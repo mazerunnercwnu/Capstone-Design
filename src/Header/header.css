@@ -4,4 +4,5 @@ h1 {
     font-family: 'Do Hyeon', sans-serif;
     font-size: 45px;
     text-align : center;
+    cursor : default;
 }

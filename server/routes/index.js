@@ -67,9 +67,10 @@ router.post('/saving_map', function (req, res) {
     let map_data = req.body.map;
     let map_height = req.body.height;
     let map_width = req.body.width;
+    let map_name = req.body.title;
 
-    let sql = `insert into map(map_data, map_height, map_width) values (?, ?, ?)`;
-    connection.query(sql, [map_data, map_height, map_width], function (err, rows, fields){
+    let sql = `insert into map(map_data, map_name, map_height, map_width) values (?, ?, ?, ?)`;
+    connection.query(sql, [map_data, map_name, map_height, map_width], function (err, rows, fields){
         if ( err ) {
             console.log(err)
         } else {
@@ -91,4 +92,18 @@ router.post('/loading_map', function (req, res) {
         }
     })
 });
+
+router.get('/loading_data', function (req, res) {
+    let sql = `SELECT map_id, map_name FROM map;`
+    
+    connection.query(sql, [] , function (err, rows, fields){
+        if ( err ) {
+            console.log(err)
+        } else {
+            console.log('success!');
+            res.send(rows);
+        }
+    })
+});
+
 module.exports = router;

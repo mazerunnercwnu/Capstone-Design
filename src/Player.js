@@ -26,7 +26,7 @@ class Player extends Component {
     load = () => {
         //================= DB에서 불러오기 ==========================
         let idx = '';
-        let id = 2;
+        let id = this.props.match.params.map_id;
 
         const data = {
             map_id:id

@@ -11,7 +11,6 @@ class Login extends Component {
             pwd:'',
         }
     }
-
     handleChange = (e) => {
         this.setState({
             [e.target.name]:e.target.value
@@ -19,6 +18,7 @@ class Login extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
+
         const data = {
             id:this.state.id,
             pwd:this.state.pwd
@@ -35,12 +35,7 @@ class Login extends Component {
         .then(data => {
             if(data.success === true){
                 alert('로그인 성공!')
-                if (typeof (Storage) == undefined) {
-                    // 현재 브라우저에서는 web storage가 작동하지 않는다
-                  } else {
-                    localStorage.logged = true;      
-                    // 여기에 local storage or session
-                  }
+                localStorage.isLogged = true;
             } else {
                 alert('로그인 실패!')
             }
