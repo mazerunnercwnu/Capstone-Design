@@ -5,6 +5,7 @@ import Signup from './Signup'
 import Login from './Login'
 import Maker from './Maker'
 import Player from './Player'
+import Cir from './Loading'
 import './Style/App.css'
 
 function App() {

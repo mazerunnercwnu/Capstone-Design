@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CommonTable from './table/CommonTable.js';
 import CommonTableColumn from './table/CommonTableColum.js';
 import CommonTableRow from './table/CommonTableRow.js';
-import Player from './Player';
+import Loading from './Loading';
 
 class MapList extends Component{
   constructor(props){
     super(props);
     this.state = {
-      list:[]
+      list:[],
+      completed:0
     }
   }
   componentDidMount(){
     this.loadData();
   }
+
   loadData = () => {
     fetch('http://localhost:3001/loading_data/')
     .then(res => res.json())
@@ -23,7 +25,8 @@ class MapList extends Component{
       for(let i = 0; i < data.length; i++){
           const postData = {
               no:data[i].map_id,
-              name:data[i].map_name
+              name:data[i].map_name,
+              prod:data[i].map_prod
           }
           postList.push(postData);
       }
@@ -37,7 +40,7 @@ class MapList extends Component{
     const { list } = this.state;
     return (
       <div>
-        <CommonTable headersName={['맵 번호', '맵 이름']}>
+        <CommonTable headersName={['맵 번호', '맵 이름', '제작자']}>
           {
             list ? list.map((item, index) => {
               return(
@@ -46,11 +49,18 @@ class MapList extends Component{
                   <CommonTableColumn>
                     <Link id ='list' to={`/player/${ item.no }`}>{ item.name }</Link>
                   </CommonTableColumn>
+                  <CommonTableColumn>{ item.prod }</CommonTableColumn>
                 </CommonTableRow>
               );
             }) : ''
           }
         </CommonTable>
+        {
+          list.length == 0 ? 
+          <div className = 'loading'>
+            <Loading/>
+          </div> : ''
+        }
       </div>
     );
   }

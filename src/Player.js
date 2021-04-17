@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './Style/Player.css';
 import Head from './Header/header';
+import Loading from './Loading';
+import List from './RankList';
+
 const ip = '3.36.223.82';
 
 class Player extends Component {
     constructor(props){
         super(props);
         this.state = {
+            map_id:this.props.match.params.map_id,
             height:0,
             width:0,
             map:[],
@@ -19,14 +23,15 @@ class Player extends Component {
             isUsing:false
         }
     }
-    componentWillMount(){
-         this.load();   
+
+    componentDidMount(){
+        this.load();   
     }
     //===================== 맵 불러오기 ==============================
     load = () => {
         //================= DB에서 불러오기 ==========================
         let idx = '';
-        let id = this.props.match.params.map_id;
+        const id = this.state.map_id;
 
         const data = {
             map_id:id
@@ -74,6 +79,10 @@ class Player extends Component {
     }
     start = () => {
         if(this.state.isUsing === true) return;
+        if(this.state.map === []) {
+            alert('맵 정보를 불러오는 중입니다!');
+            return;
+        }
         this.setTable();
         this.searchPos();
         this.setState({ isUsing : true });
@@ -87,6 +96,8 @@ class Player extends Component {
             map[pos.y - 1][pos.x] = 2;
             map[pos.y][pos.x] = 0;
             pos.y--;
+        } else if (target === undefined) {
+            return;
         } else if (target === 3) {
             this.clear();
         }
@@ -158,9 +169,34 @@ class Player extends Component {
     //=================== 게임 클리어 ==============================
     clear = () => {
         let clearTime = this.getTimer();
+        const id = this.state.map_id;
 
-        alert(`축하드립니다! 게임 클리어 시간은 ${clearTime}입니다 !`);
-
+        if(localStorage.isLogged == 'true') {
+            const data = {
+                map_id:id,
+                user_id:localStorage.loginID,
+                timer:this.state.timer
+            }
+            fetch('http://localhost:3001/clear', {
+            //fetch(`http://${ip}:3001/clear`, {
+                method:'post',
+                headers:{
+                   "Content-type":"application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success == true){
+                    alert(`축하드립니다! 게임 클리어 시간은 ${clearTime}입니다 !`);
+                    this.props.history.push('./');
+                } else {
+                    alert('error')
+                }
+            })
+        } else {
+            alert(`축하드립니다! 게임 클리어 시간은 ${clearTime}입니다!\n 로그인 하시지 않아 랭킹이 저장되지 않습니다!`)
+        }
         this.setState({ isUsing:false });
     }
     //=================== 게임 타이머 ==============================
@@ -172,7 +208,7 @@ class Player extends Component {
         }))
     }
     getTimer = () => {
-        let { timer } = this.state;
+        const { timer } = this.state;
 
         let min = Math.floor(timer / 6000);
         let sec = Math.floor(timer / 100) % 60;
@@ -222,19 +258,26 @@ class Player extends Component {
         })
     }
     render(){
+        const { map } = this.state;
         return(
             <div>
-            <Head/>
-            <div className = 'bg' onClick = { this.focus }>
-                <div className = 'start'>
-                    <button onClick = { this.start }>Game Start!</button>
-                    <p>[Game Start!] 버튼을 누르시면 맵이 켜지며 타이머가 작동합니다 !</p>
+                <Head/>
+                { map.length == 0 ? 
+                <div className = 'loading'><Loading/></div> 
+                :
+                <div className = 'bg' onClick = { this.focus }>
+                    <div className = 'start'>
+                        <button onClick = { this.start }>Game Start!</button>
+                        <p>[Game Start!] 버튼을 누르시면 맵이 켜지며 타이머가 작동합니다 !</p>
+                    </div>
+                    <div className = 'board'>
+                        <input onKeyDown = { this.handleKeyPress } ref = { this.doing } value = { this.getTimer() } readOnly></input>
+                        <table>{ this.state.table }</table>
+                    </div>
+                </div>}
+                <div className = 'rank-list'>
+                    <List map_id = {this.state.map_id}/>
                 </div>
-                <div className = 'board'>
-                    <input onKeyDown = { this.handleKeyPress } ref = { this.doing } value = { this.getTimer() } readOnly></input>
-                    <table>{ this.state.table }</table>
-                </div>
-            </div>
             </div>
         );
     }

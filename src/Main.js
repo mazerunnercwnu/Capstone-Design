@@ -1,7 +1,7 @@
 import react, { Component } from 'react';
 import './Style/Main.css';
 import Head from './Header/header'
-import List from './List'
+import List from './MapList'
 import { Link } from 'react-router-dom';
 
 class Main extends Component {
@@ -9,9 +9,10 @@ class Main extends Component {
         super(props);
     }
     componentDidMount(){
-        localStorage.isLogged = false;
+        if(localStorage.length == 0) localStorage.isLogged = false;
     }
     logout(){
+        localStorage.clear();
         localStorage.isLogged = false;
     }
     render(){
@@ -32,7 +33,7 @@ class Main extends Component {
                         <List/>
                     </div>
                     <div className = 'maker-button'>
-                        <Link to = './maker'><button>맵 제작하기</button></Link>
+                        { localStorage.isLogged === 'true' && <Link to = './maker'><button>맵 제작하기</button></Link> }
                     </div>
                 </div>
             </div>
