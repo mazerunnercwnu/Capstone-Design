@@ -4,6 +4,8 @@ import CommonTable from './table/CommonTable.js';
 import CommonTableColumn from './table/CommonTableColum.js';
 import CommonTableRow from './table/CommonTableRow.js';
 import Player from './Player';
+const ip = '3.36.223.82'
+const port = 3001
 
 class MapList extends Component{
   constructor(props){
@@ -16,7 +18,7 @@ class MapList extends Component{
     this.loadData();
   }
   loadData = () => {
-    fetch('http://localhost:3001/loading_data/')
+    fetch(`http://3.36.223.82:3001/loading_data`)
     .then(res => res.json())
     .then(data => {
       let postList = [];

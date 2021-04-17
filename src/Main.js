@@ -8,11 +8,9 @@ class Main extends Component {
     constructor(props){
         super(props);
     }
-    componentDidMount(){
-        localStorage.isLogged = false;
-    }
     logout(){
         localStorage.isLogged = false;
+        alert('로그아웃 되었습니다!')
     }
     render(){
         return(

@@ -32,8 +32,8 @@ class Player extends Component {
             map_id:id
         }
 
-        fetch(`http://localhost:3001/loading_map/`, {
-        //fetch(`http://${ip}:3001/loading_map/`, {
+        // fetch(`http://localhost:3001/loading_map/`, {
+        fetch(`http://${ip}:3001/loading_map/`, {
             method:'post',
             headers:{
                 "Content-Type":"application/json"

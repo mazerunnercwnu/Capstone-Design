@@ -94,11 +94,11 @@ router.post('/loading_map', function (req, res) {
 });
 
 router.get('/loading_data', function (req, res) {
-    let sql = `SELECT map_id, map_name FROM map;`
-    
+    let sql = `SELECT map_id, map_name FROM map`;
+
     connection.query(sql, [] , function (err, rows, fields){
         if ( err ) {
-            console.log(err)
+            console.log(err);
         } else {
             console.log('success!');
             res.send(rows);

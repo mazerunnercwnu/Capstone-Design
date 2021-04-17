@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Head from './Header/header'
 import './Style/Maker.css';
-const ip = '3.36.223.82;'
+const ip = '3.36.223.82'
 
 class Maker extends Component {
     constructor(props){
@@ -45,8 +45,8 @@ class Maker extends Component {
             width: width,
             title: title
         }
-        fetch(`http://localhost:3001/saving_map/`, {
-        //fetch(`http://${ip}:3001/saving_map/`, {
+        // fetch(`http://localhost:3001/saving_map/`, {
+        fetch(`http://${ip}:3001/saving_map/`, {
             method:'post',
             headers:{
                 "content-type":"application/json"
