@@ -64,17 +64,22 @@ router.post('/login', function (req, res) {
 });
 
 router.post('/saving_map', function (req, res) {
-    let map_data = req.body.map;
-    let map_height = req.body.height;
-    let map_width = req.body.width;
-    let map_name = req.body.title;
+    const map_data = req.body.map;
+    const map_height = req.body.height;
+    const map_width = req.body.width;
+    const map_name = req.body.title;
+    const map_prod = req.body.prod;
 
-    let sql = `insert into map(map_data, map_name, map_height, map_width) values (?, ?, ?, ?)`;
-    connection.query(sql, [map_data, map_name, map_height, map_width], function (err, rows, fields){
+    let sql = `insert into map(map_data, map_name, map_height, map_width, map_prod) values (?, ?, ?, ?, ?)`;
+    connection.query(sql, [map_data, map_name, map_height, map_width, map_prod], function (err, rows, fields){
+        
+        const save = new Object();
         if ( err ) {
             console.log(err)
         } else {
             console.log('success!');
+            save.success = true;
+            res.send(save);
         }
     })
 });
@@ -94,11 +99,46 @@ router.post('/loading_map', function (req, res) {
 });
 
 router.get('/loading_data', function (req, res) {
-    let sql = `SELECT map_id, map_name FROM map`;
-
+    let sql = `SELECT map_id, map_name, map_prod FROM map`
+    
     connection.query(sql, [] , function (err, rows, fields){
         if ( err ) {
+            console.log(err)
+        } else {
+            console.log('success!');
+            res.send(rows);
+        }
+    })
+});
+
+router.post('/clear',  function (req, res) {
+    const map_id = req.body.map_id;
+    const user_id = req.body.user_id;
+    const timer = req.body.timer;
+
+    let sql = `insert into ranking(map_id, user_id, timer) values (?, ?, ?)`
+
+    connection.query(sql, [map_id, user_id, timer] , function (err, rows, fields){
+        let clear = new Object();
+        
+        if ( err ) {
             console.log(err);
+        } else {
+            console.log('success!');
+            clear.success = true;
+            res.send(clear);
+        }
+    })
+});
+
+router.post('/loading_rank', function (req, res) {
+    const map_id = req.body.map_id;
+
+    let sql = `SELECT user_id, timer FROM ranking WHERE map_id = ? ORDER BY timer`
+    
+    connection.query(sql, [ map_id ] , function (err, rows, fields){
+        if ( err ) {
+            console.log(err)
         } else {
             console.log('success!');
             res.send(rows);

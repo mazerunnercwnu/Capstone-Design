@@ -43,7 +43,8 @@ class Maker extends Component {
             map: idx,
             height: height,
             width: width,
-            title: title
+            title: title,
+            prod: localStorage.loginID
         }
         // fetch(`http://localhost:3001/saving_map/`, {
         fetch(`http://${ip}:3001/saving_map/`, {
@@ -52,6 +53,13 @@ class Maker extends Component {
                 "content-type":"application/json"
             },
             body:JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success == true){
+                alert('맵 저장이 완료되었습니다 !');
+                this.props.history.push('./');
+            }
         })
     }
     //================== 높이와 너비 설정 =====================
