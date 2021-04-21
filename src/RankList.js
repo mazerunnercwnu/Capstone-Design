@@ -49,7 +49,7 @@ class RankList extends Component{
             }
             postList.push(postData);
         }
-      } else {
+      } else {  
         for(let i = 0; i < limit; i++){
             const postData = {
                 no:i,

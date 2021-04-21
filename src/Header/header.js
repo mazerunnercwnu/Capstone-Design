@@ -5,7 +5,7 @@ function Header() {
     return (
         <Link style = {{textDecoration : 'none'}} to = '../'>
             <div className="head">
-                <h1>The Maze Runner</h1>
+                <h1>CWNU Runner</h1>
             </div>
         </Link>
     )

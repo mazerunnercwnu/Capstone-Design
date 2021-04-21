@@ -4,6 +4,7 @@ import CommonTable from './table/CommonTable.js';
 import CommonTableColumn from './table/CommonTableColum.js';
 import CommonTableRow from './table/CommonTableRow.js';
 import Loading from './Loading';
+const ip = '3.36.223.82'
 
 class MapList extends Component{
   constructor(props){

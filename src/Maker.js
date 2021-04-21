@@ -30,37 +30,45 @@ class Maker extends Component {
     }
     //==================== 맵 저장 ==========================
     save = () => {
-        //=========== 맵 정보 데이터 변환 =============
-        let idx = '';
-        const { map, height, width, title } = this.state;
-        for(let i = 0; i < height; i++){
-            for(let j = 0; j < width; j++){
-                idx = idx + map[i][j];
+        if(this.findS() == true && this.findE() == true && this.bfs() == true){;
+            //=========== 맵 정보 데이터 변환 =============
+            let idx = '';
+            const { map, height, width, title } = this.state;
+            for(let i = 0; i < height; i++){
+                for(let j = 0; j < width; j++){
+                    idx = idx + map[i][j];
+                }
             }
-        }
-        //=============== DB에 저장 ================
-        const data = {
-            map: idx,
-            height: height,
-            width: width,
-            title: title,
-            prod: localStorage.loginID
-        }
-        fetch(`http://localhost:3001/saving_map/`, {
-        //fetch(`http://${ip}:3001/saving_map/`, {
-            method:'post',
-            headers:{
-                "content-type":"application/json"
-            },
-            body:JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.success == true){
-                alert('맵 저장이 완료되었습니다 !');
-                this.props.history.push('./');
+            //=============== DB에 저장 ================
+            const data = {
+                map: idx,
+                height: height,
+                width: width,
+                title: title,
+                prod: localStorage.loginID
             }
-        })
+            fetch(`http://localhost:3001/saving_map/`, {
+            //fetch(`http://${ip}:3001/saving_map/`, {
+                method:'post',
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success == true){
+                    alert('맵 저장이 완료되었습니다 !');
+                    this.props.history.push('./');
+                }
+            })
+        } else if (this.findS() == false) {
+            alert('시작 지점을 정해주세요!');
+        } else if (this.findE() == false) {
+            alert('클리어 지점을 정해주세요!');
+        } else if (this.bfs() == false) {
+            alert('클리어가 불가능한 맵입니다. 클리어가 가능하도록 맵을 수정해주세요!')
+        }
     }
     //================== 높이와 너비 설정 =====================
     handleChange = (e) => {
@@ -204,10 +212,16 @@ class Maker extends Component {
 
     //=================== 맵 제작 테이블 세팅 ===================
     size = () => {
+        const { height, width } = this.state;
+        if(height > 30 || width > 30){
+            alert('맵의 크기는 최대 30x30까지입니다!')
+            return;
+        }
+
         let arr = [];
-        for(let i = 0; i < this.state.height; i++){
+        for(let i = 0; i < height; i++){
             let idx = [];
-            for(let j = 0; j < this.state.width; j++){
+            for(let j = 0; j < width; j++){
                 idx.push(0);
             }
             arr.push(idx);
@@ -244,7 +258,106 @@ class Maker extends Component {
             table:arr
         })
     }
+    //============== 시작점, 도착점 찾기 ======================
+    findS = () => {
+        const { map, height, width } = this.state;
 
+        for(let i = 0; i < height; i++){
+            for(let j = 0; j < width; j++){
+                if( map[i][j] == 2) return true;
+            }
+        }
+
+        return false;
+    }
+    findE = () => {
+        const { map, height, width } = this.state;
+
+        for(let i = 0; i < height; i++){
+            for(let j = 0; j < width; j++){
+                if( map[i][j] == 3) return true;
+            }
+        }
+
+        return false;
+    }
+    //======================= BFS =============================
+    bfs = () => {
+        let path = [];
+        let queue = [];
+
+        let start = {
+            x:-1,
+            y:-1
+        }
+        let end = {
+            x:-1,
+            y:-1
+        }
+        const dx = [0, 0, 1, -1];
+        const dy = [1, -1, 0, 0];
+
+        const { map, height, width } = this.state;
+
+        for(let i = 0; i < height; i++){
+            let idx = [];
+            for(let j = 0; j < width; j++){
+                if (map[i][j] == 0 || map[i][j] == 2 || map[i][j] == 3) {
+                    idx.push({
+                        noObstacles:true,
+                        visit:false
+                    })
+                    if (map[i][j] == 2) {
+                        start = {
+                            x:i,
+                            y:j
+                        }
+                    } else if (map[i][j] == 3) {
+                        end = {
+                            x:i,
+                            y:j
+                        }
+                    }
+                } else {
+                    idx.push({
+                        noObstacles:false,
+                        visit:false
+                    })
+                }
+            }
+            path.push(idx);
+        }
+        
+        let current = start;
+
+        path[current.x][current.y].visit = true;
+        queue.push(current);
+
+        while(queue.length != 0){
+            current = queue.shift();
+
+            for(let i = 0; i < 4; i++){
+                const next = {
+                    x:current.x + dx[i],
+                    y:current.y + dy[i]
+                }
+                
+                if(next.x >= 0 && next.x < width && next.y >= 0 && next.y < height){
+                    if(end.x == next.x && end.y == next.y) {
+                        return true;
+                    } else {
+                        const target = path[next.x][next.y];
+
+                        if(target.noObstacles == true && target.visit == false){
+                            path[next.x][next.y].visit = true;
+                            queue.push(next)
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
     render(){
         return(
             <div>
@@ -262,7 +375,7 @@ class Maker extends Component {
                     <button id = "cancel" onClick = {this.setmodC}>CANCEL</button>
                 </div>
                 <div className = 'tip'>
-                    <p>맵의 크기는 최대 30x30까지를 권장합니다.</p>
+                    <p>맵의 크기는 최대 30x30까지 지원합니다.</p>
                 </div>
                 <div className = 'title'>
                     <input name = 'title' placeholder = 'INPUT TITLE HERE' onChange = {this.handleChange}></input>
