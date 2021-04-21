@@ -90,14 +90,15 @@ class Player extends Component {
     }
     //====================== 키 입력 이벤트 =============================
     moveUp = () => {
-        let { map, pos } = this.state;
+        const { map, pos } = this.state;
+        if (pos.y - 1 < 0) return;
+
         let target = map[pos.y - 1][pos.x];
+
         if (target === 0) {
             map[pos.y - 1][pos.x] = 2;
             map[pos.y][pos.x] = 0;
             pos.y--;
-        } else if (target === undefined) {
-            return;
         } else if (target === 3) {
             this.clear();
         }
@@ -106,7 +107,9 @@ class Player extends Component {
         })
     }
     moveDown = () => {
-        let { map, pos } = this.state;
+        const { map, pos, height } = this.state;
+        if (pos.y + 1 >= height) return;
+
         let target = map[pos.y + 1][pos.x];
         if (target === 0) {
             map[pos.y + 1][pos.x] = 2;
@@ -121,7 +124,9 @@ class Player extends Component {
         })
     }
     moveRight = () => {
-        let { map, pos } = this.state;
+        const { map, pos, width } = this.state;
+        if (pos.x + 1 >= width) return;
+
         let target = map[pos.y][pos.x + 1];
         if (target === 0) {
             map[pos.y][pos.x + 1] = 2;
@@ -137,6 +142,8 @@ class Player extends Component {
     }
     moveLeft = () => {
         let { map, pos } = this.state;
+        if (pos.x - 1 < 0) return;
+
         let target = map[pos.y][pos.x - 1];
         if (target === 0) {
             map[pos.y][pos.x - 1] = 2;
@@ -257,6 +264,7 @@ class Player extends Component {
             table:idx
         })
     }
+    
     render(){
         const { map } = this.state;
         return(
