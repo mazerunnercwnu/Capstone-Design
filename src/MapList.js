@@ -4,7 +4,7 @@ import CommonTable from './table/CommonTable.js';
 import CommonTableColumn from './table/CommonTableColum.js';
 import CommonTableRow from './table/CommonTableRow.js';
 import Loading from './Loading';
-const ip = '3.36.223.82'
+const ip = '3.36.223.82';
 
 class MapList extends Component{
   constructor(props){
@@ -19,27 +19,45 @@ class MapList extends Component{
   }
 
   loadData = () => {
-    fetch(`http://${ip}:3001/loading_data/`)
+    let data = {}
+
+    if (this.props.page == undefined) {
+      data = {
+        page : 0
+      }
+    } else {
+      data = {
+        page : this.props.page
+      }
+    }
+    fetch(`http://${ip}:3001/loading_data/`, {
+    // fetch('http://localhost:3001/loading_data/', {
+      method:'post',
+      headers:{
+          "content-type":"application/json"
+      },
+      body:JSON.stringify(data)
+    })
     .then(res => res.json())
     .then(data => {
-      let postList = [];
+      let count = 0;
+
       for(let i = 0; i < data.length; i++){
-          const postData = {
-              no:data[i].map_id,
-              name:data[i].map_name,
-              prod:data[i].map_prod
-          }
-          postList.push(postData);
+        const postData = {
+            no:data[i].map_id,
+            name:data[i].map_name,
+            prod:data[i].map_prod,
+        }
+        this.setState({
+          list:this.state.list.concat(postData)
+        })
       }
-      this.setState({
-        list:this.state.list.concat(postList)
-      })
     })
   }
-
   render(){
     const { list } = this.state;
     return (
+      <>
       <div>
         <CommonTable headersName={['맵 번호', '맵 이름', '제작자']}>
           {
@@ -48,7 +66,7 @@ class MapList extends Component{
                 <CommonTableRow key={ index }>
                   <CommonTableColumn>{ item.no }</CommonTableColumn>
                   <CommonTableColumn>
-                    <Link id ='list' to={`/player/${ item.no }`}>{ item.name }</Link>
+                    <Link id ='list' to={`/player/${ item.no }`}> { item.name } </Link>
                   </CommonTableColumn>
                   <CommonTableColumn>{ item.prod }</CommonTableColumn>
                 </CommonTableRow>
@@ -63,6 +81,7 @@ class MapList extends Component{
           </div> : ''
         }
       </div>
+      </>
     );
   }
 }
