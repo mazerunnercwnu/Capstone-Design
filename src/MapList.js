@@ -30,7 +30,8 @@ class MapList extends Component{
         page : this.props.page
       }
     }
-    fetch('http://localhost:3001/loading_data/', {
+    fetch(`http://${ip}:3001/loading_data/`, {
+    // fetch('http://localhost:3001/loading_data/', {
       method:'post',
       headers:{
           "content-type":"application/json"

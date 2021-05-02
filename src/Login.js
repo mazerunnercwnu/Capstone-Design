@@ -23,8 +23,8 @@ class Login extends Component {
             id:this.state.id,
             pwd:this.state.pwd
         }
-        fetch('http://localhost:3001/login/', {
-        //fetch(`http://${ip}:3001/login/`), {
+        // fetch('http://localhost:3001/login/', {
+        fetch(`http://${ip}:3001/login/`, {
             method:'post',
             headers:{
                 "Content-Type":"application/json"
