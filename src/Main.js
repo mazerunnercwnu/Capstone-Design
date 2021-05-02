@@ -3,19 +3,59 @@ import './Style/Main.css';
 import Head from './Header/header'
 import List from './MapList'
 import { Link } from 'react-router-dom';
+const ip = '3.36.223.82'
 
 class Main extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            page:this.props.match.params.page,
+            length:0
+        }
     }
     componentDidMount(){
         if(localStorage.length == 0) localStorage.isLogged = false;
+        if(this.state.page == undefined) this.setState({page:0})
+        this.length();
     }
-    logout(){
+
+    length = () => {
+        fetch(`http://${ip}:3001/length`)
+        // fetch('http://localhost:3001/length')
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+                length:parseInt((data[0].cnt - 1) / 10)
+            })
+        })
+    }
+
+    logout = () => {
         localStorage.clear();
         localStorage.isLogged = false;
     }
+
+    prev = () => {
+        if(this.state.page == 0) {
+            alert('첫번째 페이지입니다!');
+            return;
+        }
+        this.setState({
+            page : this.state.page - 1
+        })
+    }
+    next = () => {
+        if(this.state.page == this.state.length) {
+            alert('마지막 페이지입니다!')
+            return;
+        }
+        this.setState({
+            page : parseInt(this.state.page + 1)
+        })
+    }
     render(){
+        console.log(this.state.page);
+        console.log(this.state.length);
         return(
             <div>
                 <Head/>
@@ -30,10 +70,14 @@ class Main extends Component {
                         { localStorage.isLogged === 'true' && <Link to = './'><button onClick = {this.logout}>로그아웃</button></Link>}
                     </div>
                     <div className = 'link-table'>
-                        <List/>
+                        <List page = {this.props.match.params.page}/>
                     </div>
                     <div className = 'maker-button'>
                         { localStorage.isLogged === 'true' && <Link to = './maker'><button>맵 제작하기</button></Link> }
+                    </div>
+                    <div className = 'paging-button'>
+                        <a href = {`./${this.state.page}`}><button onClick = {this.prev}>←</button></a>&nbsp;
+                        <a href = {`./${this.state.page}`}><button onClick = {this.next}>→</button></a>
                     </div>
                 </div>
             </div>

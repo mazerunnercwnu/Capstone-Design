@@ -90,14 +90,15 @@ class Player extends Component {
     }
     //====================== 키 입력 이벤트 =============================
     moveUp = () => {
-        let { map, pos } = this.state;
+        const { map, pos } = this.state;
+        if (pos.y - 1 < 0) return;
+
         let target = map[pos.y - 1][pos.x];
+
         if (target === 0) {
             map[pos.y - 1][pos.x] = 2;
             map[pos.y][pos.x] = 0;
             pos.y--;
-        } else if (target === undefined) {
-            return;
         } else if (target === 3) {
             this.clear();
         }
@@ -106,7 +107,9 @@ class Player extends Component {
         })
     }
     moveDown = () => {
-        let { map, pos } = this.state;
+        const { map, pos, height } = this.state;
+        if (pos.y + 1 >= height) return;
+
         let target = map[pos.y + 1][pos.x];
         if (target === 0) {
             map[pos.y + 1][pos.x] = 2;
@@ -121,7 +124,9 @@ class Player extends Component {
         })
     }
     moveRight = () => {
-        let { map, pos } = this.state;
+        const { map, pos, width } = this.state;
+        if (pos.x + 1 >= width) return;
+
         let target = map[pos.y][pos.x + 1];
         if (target === 0) {
             map[pos.y][pos.x + 1] = 2;
@@ -137,6 +142,8 @@ class Player extends Component {
     }
     moveLeft = () => {
         let { map, pos } = this.state;
+        if (pos.x - 1 < 0) return;
+
         let target = map[pos.y][pos.x - 1];
         if (target === 0) {
             map[pos.y][pos.x - 1] = 2;
@@ -177,8 +184,8 @@ class Player extends Component {
                 user_id:localStorage.loginID,
                 timer:this.state.timer
             }
-            fetch('http://localhost:3001/clear', {
-            //fetch(`http://${ip}:3001/clear`, {
+            // fetch('http://localhost:3001/clear', {
+            fetch(`http://${ip}:3001/clear`, {
                 method:'post',
                 headers:{
                    "Content-type":"application/json"
@@ -189,7 +196,7 @@ class Player extends Component {
             .then(data => {
                 if (data.success == true){
                     alert(`축하드립니다! 게임 클리어 시간은 ${clearTime}입니다 !`);
-                    this.props.history.push('./');
+                    this.props.history.push('../');
                 } else {
                     alert('error')
                 }
@@ -248,7 +255,7 @@ class Player extends Component {
                 } else if (mode === 2) {
                     child.push(<td style = {{backgroundColor:'skyblue', width:'40px', height:'40px'}}></td>)
                 } else if (mode === 3) {
-                    child.push(<td style = {{backgroundColor:'yellow', width:'40px', height:'40px'}}></td>)
+                    child.push(<td style = {{backgroundColor:'#ffee7e', width:'40px', height:'40px'}}></td>)
                 }
             }
             idx.push(<tbody><tr>{child}</tr></tbody>)
@@ -257,6 +264,7 @@ class Player extends Component {
             table:idx
         })
     }
+    
     render(){
         const { map } = this.state;
         return(

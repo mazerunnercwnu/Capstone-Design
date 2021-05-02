@@ -54,7 +54,7 @@ class Signup extends Component {
                 body: JSON.stringify(data)
             })
             alert('회원가입이 완료되었습니다!')
-            this.props.history.push('./');
+            this.props.history.push('../');
         }
     }
     checkID = (e) => {

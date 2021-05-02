@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CommonTable from './table/CommonTable.js';
 import CommonTableColumn from './table/CommonTableColum.js';
 import CommonTableRow from './table/CommonTableRow.js';
-import Loading from './Loading';
+const ip = '3.36.223.82';
 
 class RankList extends Component{
   constructor(props){
@@ -29,7 +29,8 @@ class RankList extends Component{
     const data = {
       map_id : this.props.map_id
     }
-    fetch('http://localhost:3001/loading_rank/', {
+    fetch(`http://${ip}:3001/loading_rank/`, {
+    // fetch('http://localhost:3001/loading_rank/', {
       method:'post',
       headers:{
         'Content-Type':'application/json'
@@ -49,7 +50,7 @@ class RankList extends Component{
             }
             postList.push(postData);
         }
-      } else {
+      } else {  
         for(let i = 0; i < limit; i++){
             const postData = {
                 no:i,

@@ -98,9 +98,11 @@ router.post('/loading_map', function (req, res) {
     })
 });
 
-router.get('/loading_data', function (req, res) {
-    let sql = `SELECT map_id, map_name, map_prod FROM map`
+router.post('/loading_data', function (req, res) {
+    const page = req.body.page;
     
+    let sql = `SELECT map_id, map_name, map_prod FROM map ORDER BY map_id DESC Limit ${page * 10}, ${page * 10 + 10}`
+
     connection.query(sql, [] , function (err, rows, fields){
         if ( err ) {
             console.log(err)
@@ -146,4 +148,16 @@ router.post('/loading_rank', function (req, res) {
     })
 });
 
+router.get('/length', function (req, res) {
+    let sql = `SELECT COUNT (map_id) as cnt FROM map`
+
+    connection.query(sql, [] , function (err, rows, fields){
+        if ( err ) {
+            console.log(err)
+        } else {
+            console.log('success!');
+            res.send(rows);
+        }
+    })
+})
 module.exports = router;
