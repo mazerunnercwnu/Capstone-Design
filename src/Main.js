@@ -3,6 +3,7 @@ import './Style/Main.css';
 import Head from './Header/header'
 import List from './MapList'
 import { Link } from 'react-router-dom';
+const ip = '3.36.223.82'
 
 class Main extends Component {
     constructor(props){
@@ -19,7 +20,8 @@ class Main extends Component {
     }
 
     length = () => {
-        fetch('http://localhost:3001/length')
+        fetch(`http://${ip}:3001/length`)
+        // fetch('http://localhost:3001/length')
         .then(res => res.json())
         .then(data => {
             this.setState({

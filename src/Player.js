@@ -37,8 +37,8 @@ class Player extends Component {
             map_id:id
         }
 
-        fetch(`http://localhost:3001/loading_map/`, {
-        //fetch(`http://${ip}:3001/loading_map/`, {
+        // fetch(`http://localhost:3001/loading_map/`, {
+        fetch(`http://${ip}:3001/loading_map/`, {
             method:'post',
             headers:{
                 "Content-Type":"application/json"
@@ -184,8 +184,8 @@ class Player extends Component {
                 user_id:localStorage.loginID,
                 timer:this.state.timer
             }
-            fetch('http://localhost:3001/clear', {
-            //fetch(`http://${ip}:3001/clear`, {
+            // fetch('http://localhost:3001/clear', {
+            fetch(`http://${ip}:3001/clear`, {
                 method:'post',
                 headers:{
                    "Content-type":"application/json"

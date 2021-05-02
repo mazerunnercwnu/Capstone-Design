@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Head from './Header/header'
 import './Style/Maker.css';
-const ip = '3.36.223.82;'
+const ip = '3.36.223.82';
 
 class Maker extends Component {
     constructor(props){
@@ -47,8 +47,8 @@ class Maker extends Component {
                 title: title,
                 prod: localStorage.loginID
             }
-            fetch(`http://localhost:3001/saving_map/`, {
-            //fetch(`http://${ip}:3001/saving_map/`, {
+            //fetch(`http://localhost:3001/saving_map/`, {
+            fetch(`http://${ip}:3001/saving_map/`, {
                 method:'post',
                 headers:{
                     "content-type":"application/json"
@@ -213,26 +213,26 @@ class Maker extends Component {
     //=================== 맵 제작 테이블 세팅 ===================
     size = () => {
         const { height, width } = this.state;
-        if(height > 30 || width > 30){
-            alert('맵의 크기는 최대 30x30까지입니다!')
+        if(height <= 30 && height > 0 && width > 0 && width <= 30){
+            let arr = [];
+            for(let i = 0; i < height; i++){
+                let idx = [];
+                for(let j = 0; j < width; j++){
+                    idx.push(0);
+                }
+                arr.push(idx);
+            }
+
+            this.setState({
+                map:arr
+            },
+            () => {
+                this.table();
+            })    
+        } else {
+            alert('맵의 크기는 최대 30 x 30입니다! 30이하의 자연수만 입력해주세요!')
             return;
         }
-
-        let arr = [];
-        for(let i = 0; i < height; i++){
-            let idx = [];
-            for(let j = 0; j < width; j++){
-                idx.push(0);
-            }
-            arr.push(idx);
-        }
-
-        this.setState({
-            map:arr
-        },
-        () => {
-            this.table();
-        })
     }
 
     table = () => {

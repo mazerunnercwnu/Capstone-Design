@@ -45,8 +45,8 @@ class Signup extends Component {
                 id : e.target.id.value,
                 pwd : e.target.pwd.value
             }
-            fetch(`http://localhost:3001/signup/`, {
-            //fetch(`http://${ip}:3001/signup/`, {
+            // fetch(`http://localhost:3001/signup/`, {
+            fetch(`http://${ip}:3001/signup/`, {
                 method:"post",
                 headers: {
                     "content-type":"application/json"
@@ -54,7 +54,7 @@ class Signup extends Component {
                 body: JSON.stringify(data)
             })
             alert('회원가입이 완료되었습니다!')
-            this.props.history.push('./');
+            this.props.history.push('../');
         }
     }
     checkID = (e) => {
@@ -63,8 +63,8 @@ class Signup extends Component {
         const data = {
             id : this.state.id
         }
-        fetch(`http://localhost:3001/check/`, {
-        //fetch(`http://${ip}:3001/check/`, {
+        // fetch(`http://localhost:3001/check/`, {
+        fetch(`http://${ip}:3001/check/`, {
             method:"post",
             headers: {  
                 "Content-Type":"application/json" 
