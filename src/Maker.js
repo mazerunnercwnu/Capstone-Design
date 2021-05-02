@@ -243,13 +243,13 @@ class Maker extends Component {
                 let mode = this.state.map[i][j];
 
                 if (mode === 0) {
-                    child.push(<td><button style = {{backgroundColor:"white", width:"40px", height:"40px"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
+                    child.push(<td><button style = {{backgroundColor:"white", width:"40px", height:"40px", transition:"0.5s"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
                 } else if (mode === 1) { 
-                    child.push(<td><button style = {{backgroundColor:"black", width:"40px", height:"40px"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
+                    child.push(<td><button style = {{backgroundColor:"black", width:"40px", height:"40px", transition:"0.5s"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
                 } else if (mode === 2) {
-                    child.push(<td><button style = {{backgroundColor:"skyblue", width:"40px", height:"40px"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
+                    child.push(<td><button style = {{backgroundColor:"skyblue", width:"40px", height:"40px", transition:"0.5s"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
                 } else if(mode === 3) {
-                    child.push(<td><button style = {{backgroundColor:"yellow", width:"40px", height:"40px"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
+                    child.push(<td><button style = {{backgroundColor:"#ffee7e", width:"40px", height:"40px", transition:"0.5s"}} onMouseDown = {() => this.set(i, j)} onMouseUp = {this.table}></button></td>)
                 }
             }
             arr.push(<tbody><tr>{child}</tr></tbody>)

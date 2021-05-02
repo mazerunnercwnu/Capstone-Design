@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import './header.css';
 function Header() {
     return (
-        <Link style = {{textDecoration : 'none'}} to = '../'>
+        <a href = '../' style = {{textDecoration : 'none'}}>
             <div className="head">
                 <h1>CWNU Runner</h1>
             </div>
-        </Link>
+        </a>
     )
 }
 

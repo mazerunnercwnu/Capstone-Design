@@ -51,6 +51,7 @@
         grid-row:1;
     }
 
+
 .loading {
     position : relative;
     width : 40px;
@@ -65,4 +66,17 @@
     left : 50%;
     margin-top : 50px;
     margin-left : -500px;
+}
+
+.paging-button {
+    grid-column:2/3;
+    position : relative;
+    width : 90px;
+    left : 50%;
+    margin-top : 10px;
+    margin-left : -45px;
+}
+.paging-button button {
+    width : 40px;
+    height : 40px;
 }

@@ -255,7 +255,7 @@ class Player extends Component {
                 } else if (mode === 2) {
                     child.push(<td style = {{backgroundColor:'skyblue', width:'40px', height:'40px'}}></td>)
                 } else if (mode === 3) {
-                    child.push(<td style = {{backgroundColor:'yellow', width:'40px', height:'40px'}}></td>)
+                    child.push(<td style = {{backgroundColor:'#ffee7e', width:'40px', height:'40px'}}></td>)
                 }
             }
             idx.push(<tbody><tr>{child}</tr></tbody>)

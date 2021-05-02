@@ -5,7 +5,6 @@ import Signup from './Signup'
 import Login from './Login'
 import Maker from './Maker'
 import Player from './Player'
-import Cir from './Loading'
 import './Style/App.css'
 
 function App() {
@@ -16,6 +15,7 @@ function App() {
           <Route path = '/signup' component = {Signup}/>
           <Route path = '/maker' component = {Maker}/>
           <Route path = '/player/:map_id' component = {Player}/> 
+          <Route path = '/:page' component = {Main}/>
           <Route path = '/' component = {Main}/>
        </Switch>
     </BrowserRouter>
