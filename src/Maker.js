@@ -59,7 +59,7 @@ class Maker extends Component {
             .then(data => {
                 if(data.success == true){
                     alert('맵 저장이 완료되었습니다 !');
-                    this.props.history.push('./');
+                    this.props.history.push('../');
                 }
             })
         } else if (this.findS() == false) {

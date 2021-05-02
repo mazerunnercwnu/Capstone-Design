@@ -196,7 +196,7 @@ class Player extends Component {
             .then(data => {
                 if (data.success == true){
                     alert(`축하드립니다! 게임 클리어 시간은 ${clearTime}입니다 !`);
-                    this.props.history.push('./');
+                    this.props.history.push('../');
                 } else {
                     alert('error')
                 }

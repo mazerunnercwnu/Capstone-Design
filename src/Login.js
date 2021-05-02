@@ -37,7 +37,7 @@ class Login extends Component {
                 alert('로그인 성공!')
                 localStorage.isLogged = true;
                 localStorage.loginID = this.state.id;
-                this.props.history.push('./')
+                this.props.history.push('../')
             } else {
                 alert('로그인 실패!')
             }
