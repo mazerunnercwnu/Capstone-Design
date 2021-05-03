@@ -30,38 +30,45 @@ class Maker extends Component {
     }
     //==================== 맵 저장 ==========================
     save = () => {
-        if(this.findS() == true && this.findE() == true && this.bfs() == true){;
-            //=========== 맵 정보 데이터 변환 =============
-            let idx = '';
-            const { map, height, width, title } = this.state;
-            for(let i = 0; i < height; i++){
-                for(let j = 0; j < width; j++){
-                    idx = idx + map[i][j];
+        if(this.state.title == '') {
+            alert('제목을 입력해주세요!')
+            return;
+        }
+
+        if(this.findS() == true && this.findE() == true && this.bfs() == true){
+            if(window.confirm('정말로 저장하시겠습니까?')){
+                //=========== 맵 정보 데이터 변환 =============
+                let idx = '';
+                const { map, height, width, title } = this.state;
+                for(let i = 0; i < height; i++){
+                    for(let j = 0; j < width; j++){
+                        idx = idx + map[i][j];
+                    }
                 }
-            }
-            //=============== DB에 저장 ================
-            const data = {
-                map: idx,
-                height: height,
-                width: width,
-                title: title,
-                prod: localStorage.loginID
-            }
-            //fetch(`http://localhost:3001/saving_map/`, {
-            fetch(`http://${ip}:3001/saving_map/`, {
-                method:'post',
-                headers:{
-                    "content-type":"application/json"
-                },
-                body:JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success == true){
-                    alert('맵 저장이 완료되었습니다 !');
-                    this.props.history.push('../');
+                //=============== DB에 저장 ================
+                const data = {
+                    map: idx,
+                    height: height,
+                    width: width,
+                    title: title,
+                    prod: localStorage.loginID
                 }
-            })
+                //fetch(`http://localhost:3001/saving_map/`, {
+                fetch(`http://${ip}:3001/saving_map/`, {
+                    method:'post',
+                    headers:{
+                        "content-type":"application/json"
+                    },
+                    body:JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success == true){
+                        alert('맵 저장이 완료되었습니다 !');
+                        this.props.history.push('../');
+                    }
+                })
+            } else return;
         } else if (this.findS() == false) {
             alert('시작 지점을 정해주세요!');
         } else if (this.findE() == false) {

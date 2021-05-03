@@ -40,8 +40,6 @@ class MapList extends Component{
     })
     .then(res => res.json())
     .then(data => {
-      let count = 0;
-
       for(let i = 0; i < data.length; i++){
         const postData = {
             no:data[i].map_id,
